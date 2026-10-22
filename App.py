@@ -35,7 +35,6 @@ submit = st.button("Predict Machine Failure  Status")
 
 if submit:
     data = {
-        'id':[ID],
         'Product ID':[Product_ID],
         'Type':[Type],
         'Air Temperature[K]':[Air_Temperature],
