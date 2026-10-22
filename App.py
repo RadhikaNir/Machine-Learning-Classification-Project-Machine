@@ -16,7 +16,6 @@ pre = joblib.load("pipeline.joblib")
 model = joblib.load("model.joblib")
 
 # Create Input boxes that takes input from the user 
-ID = st.number_input("ID")
 Product_ID = st.text_input("Product ID", value="L53257")
 Type = st.selectbox("Type",options=['L','M','H'])
 Air_Temperature = st.number_input("Ait Temperature [K]")
