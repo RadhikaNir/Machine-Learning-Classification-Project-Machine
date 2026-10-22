@@ -36,8 +36,8 @@ if submit:
     data = {
         'Product ID':[Product_ID],
         'Type':[Type],
-        'Air Temperature [K]':[Air_Temperature],
-        'Process Temperature [K]':[Process_Temperature],
+        'Air temperature [K]':[Air_Temperature],
+        'Process temperature [K]':[Process_Temperature],
         'Rotational speed [rpm]':[Rotational_Speed],
         'Torque [Nm]':[Torque],
         'Tool wear [min]':[Tool_Wear],
