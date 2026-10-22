@@ -52,16 +52,39 @@ if submit:
     }
     # Convert above dictionary into dataframe first
     xnew = pd.DataFrame(data)
-    st.write("Input columns:")
-    st.write(xnew.columns.tolist())
-    # Apply data cleaning and preprocessing on new data using pre pipeline
+     try:
+        # Apply the saved preprocessing pipeline
+        xnew_pre = pre.transform(xnew)
+
+        # Convert preprocessed output to a DataFrame
+        expected_columns = [
+            "con_Air temperature _K",
+            "con_Process temperature _K",
+            "con_Rotational speed _rpm",
+            "con_Torque _Nm",
+            "con_Tool wear _min"
+        ]
+
+        if isinstance(xnew_pre, pd.DataFrame):
+            xnew_pre = xnew_pre.copy()
+            xnew_pre.columns = expected_columns
+        else:
+            xnew_pre = pd.DataFrame(
+                xnew_pre,
+                columns=expected_columns
+            )
+
+        # Check for missing or infinite values
+        if not np.isfinite(xnew_pre.to_numpy(dtype=float)).all():
+            st.error(
+                "Preprocessing generated missing or infinite values. "
+                "Please check the saved preprocessing pipeline."
+            )
+
+        else:
+            # Predict using the trained model
+            preds = model.predict(xnew_pre)
     
-    xnew_pre = pre.transform(xnew)
-    xnew_pre.columns = [re.sub(r'[\[\]<]', '_', str(col)) for col in xnew_pre.columns]
-    test_col2=xnew_pre['Product ID'].fillna('L53257').astype(str)
-    xnew_pre['Product ID'] = test_col2.map(mapping).fillna(-1).astype(int)
-    # predictions
-    preds = model.predict(xnew_pre)
     if preds[0]==1:
         op = 'Machine has Failed'
         # st.subheader('Machine has Failed')
