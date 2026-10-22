@@ -18,7 +18,7 @@ model = joblib.load("model.joblib")
 # Create Input boxes that takes input from the user 
 Product_ID = st.text_input("Product ID", value="L53257")
 Type = st.selectbox("Type",options=['L','M','H'])
-Air_Temperature = st.number_input("Ait Temperature [K]")
+Air_Temperature = st.number_input("Air Temperature [K]")
 Process_Temperature = st.number_input("Process Temperature [K]")
 Rotational_Speed = st.number_input("Rotational Speed [RPM]")
 Torque = st.number_input("Torque [Nm]")
@@ -36,11 +36,11 @@ if submit:
     data = {
         'Product ID':[Product_ID],
         'Type':[Type],
-        'Air Temperature[K]':[Air_Temperature],
-        'Process Temperature[K]':[Process_Temperature],
-        'Rotational speed[rpm]':[Rotational_Speed],
-        'Torque[Nm]':[Torque],
-        'Tool wear[min]':[Tool_Wear],
+        'Air Temperature [K]':[Air_Temperature],
+        'Process Temperature [K]':[Process_Temperature],
+        'Rotational speed [rpm]':[Rotational_Speed],
+        'Torque [Nm]':[Torque],
+        'Tool wear [min]':[Tool_Wear],
         'TWF':[TWF],
         'HDF':[HDF],
         'PWF':[PWF],
