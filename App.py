@@ -14,7 +14,8 @@ st.subheader("By Radhika Nirmalkar")
 # Load the pipeline (data cleaning, preprocessing) and model
 pre = joblib.load("pipeline.joblib")
 model = joblib.load("model.joblib")
-
+st.write("Expected columns:")
+st.write(pre.feature_names_in_.tolist())
 # Create Input boxes that takes input from the user 
 ID = st.number_input("ID")
 Product_ID = st.text_input("Product ID", value="L53257")
@@ -51,6 +52,8 @@ if submit:
     }
     # Convert above dictionary into dataframe first
     xnew = pd.DataFrame(data)
+    st.write("Input columns:")
+    st.write(xnew.columns.tolist())
     # Apply data cleaning and preprocessing on new data using pre pipeline
     
     xnew_pre = pre.transform(xnew)
