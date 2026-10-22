@@ -16,6 +16,7 @@ pre = joblib.load("pipeline.joblib")
 model = joblib.load("model.joblib")
 st.write("Expected columns:")
 st.write(pre.feature_names_in_.tolist())
+
 # Create Input boxes that takes input from the user 
 ID = st.number_input("ID")
 Product_ID = st.text_input("Product ID", value="L53257")
@@ -36,7 +37,6 @@ submit = st.button("Predict Machine Failure  Status")
 
 if submit:
     data = {
-        'id':[ID],
         'Product ID':[Product_ID],
         'Type':[Type],
         'Air Temperature[K]':[Air_Temperature],
