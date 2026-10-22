@@ -17,7 +17,6 @@ pre = joblib.load("pipeline.joblib")
 model = joblib.load("model.joblib")
 
 # Create Input boxes that takes input from the user 
-Product_ID = st.text_input("Product ID", value="L53257")
 Type = st.selectbox("Type",options=['L','M','H'])
 Air_Temperature = st.number_input("Air Temperature [K]")
 Process_Temperature = st.number_input("Process Temperature [K]")
@@ -35,7 +34,6 @@ submit = st.button("Predict Machine Failure  Status")
 
 if submit:
     data = {
-        'Product ID':[Product_ID],
         'Type':[Type],
         'Air temperature [K]':[Air_Temperature],
         'Process temperature [K]':[Process_Temperature],
@@ -51,11 +49,8 @@ if submit:
     # Convert above dictionary into dataframe first
     xnew = pd.DataFrame(data)
     # Apply data cleaning and preprocessing on new data using pre pipeline
-    
     xnew_pre = pre.transform(xnew)
     xnew_pre.columns = [re.sub(r'[\[\]<]', '_', str(col)) for col in xnew_pre.columns]
-    test_col2=xnew_pre['Product ID'].fillna('L53257').astype(str)
-    xnew_pre['Product ID'] = test_col2.map(mapping).fillna(-1).astype(int)
     # predictions
     preds = model.predict(xnew_pre)
     if preds[0]==1:
